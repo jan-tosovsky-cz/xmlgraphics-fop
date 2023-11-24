@@ -24,6 +24,7 @@ import org.apache.fop.area.inline.InlineArea;
 import org.apache.fop.fo.flow.Wrapper;
 import org.apache.fop.layoutmgr.BlockLayoutManager;
 import org.apache.fop.layoutmgr.BlockStackingLayoutManager;
+import org.apache.fop.layoutmgr.IndexKeyReferenceSetter;
 import org.apache.fop.layoutmgr.LayoutContext;
 import org.apache.fop.layoutmgr.PositionIterator;
 import org.apache.fop.layoutmgr.TraitSetter;
@@ -33,12 +34,15 @@ import org.apache.fop.layoutmgr.TraitSetter;
  */
 public class WrapperLayoutManager extends LeafNodeLayoutManager {
 
+    private final Wrapper fobj;
+
     /**
      * Creates a new LM for fo:wrapper.
      * @param node the fo:wrapper
      */
     public WrapperLayoutManager(Wrapper node) {
         super(node);
+        fobj = node;
     }
 
     /** {@inheritDoc} */
@@ -50,6 +54,8 @@ public class WrapperLayoutManager extends LeafNodeLayoutManager {
         InlineArea area = new InlineArea();
         if (fobj.hasId()) {
             TraitSetter.setProducerID(area, fobj.getId());
+        } else if (fobj.hasIndexKey()) {
+            TraitSetter.setProducerID(area, fobj.getIndexKey());
         }
         return area;
     }
@@ -63,8 +69,13 @@ public class WrapperLayoutManager extends LeafNodeLayoutManager {
      * @param context the layout context for adding the area
      */
     public void addAreas(PositionIterator posIter, LayoutContext context) {
-        if (fobj.hasId()) {
-            addId();
+        if (fobj.hasId() || fobj.hasIndexKey()) {
+            if (fobj.hasId()) {
+                addId();
+            }
+            if (fobj.hasIndexKey()) {
+                addIndexKey();
+            }
             if (parentLayoutManager instanceof BlockStackingLayoutManager
                     && !(parentLayoutManager instanceof BlockLayoutManager)) {
                 Block helperBlock = new Block();
@@ -85,6 +96,12 @@ public class WrapperLayoutManager extends LeafNodeLayoutManager {
     /** {@inheritDoc} */
     protected void addId() {
         getPSLM().addIDToPage(fobj.getId());
+    }
+
+    /** {@inheritDoc} */
+    protected void addIndexKey() {
+        getPSLM().addIDToPage(fobj.getIndexKey());
+        IndexKeyReferenceSetter.add(getPSLM(), fobj);
     }
 
 }

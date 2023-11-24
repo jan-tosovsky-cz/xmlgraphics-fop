@@ -534,6 +534,7 @@ public abstract class FObj extends FONode implements Constants {
                         || "change-bar-end".equals(lName)
                         || "character".equals(lName)
                         || "external-graphic".equals(lName)
+                        || "index-page-citation-list".equals(lName)
                         || "instream-foreign-object".equals(lName)
                         || "inline".equals(lName)
                         || "inline-container".equals(lName)

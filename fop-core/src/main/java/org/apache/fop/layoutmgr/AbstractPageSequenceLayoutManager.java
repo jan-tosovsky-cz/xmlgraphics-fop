@@ -19,7 +19,9 @@
 
 package org.apache.fop.layoutmgr;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,6 +29,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.fop.area.AreaTreeHandler;
 import org.apache.fop.area.AreaTreeModel;
 import org.apache.fop.area.IDTracker;
+import org.apache.fop.area.IndexKeyReferenceInfo;
 import org.apache.fop.area.PageViewport;
 import org.apache.fop.area.Resolvable;
 import org.apache.fop.datatypes.Numeric;
@@ -51,6 +54,9 @@ public abstract class AbstractPageSequenceLayoutManager extends AbstractLayoutMa
 
     /** ID tracker supplied by the AreaTreeHandler */
     protected IDTracker idTracker;
+
+    protected final Map<String, List<IndexKeyReferenceInfo>> indexKeyReferenceInfoMap =
+            new HashMap<String, List<IndexKeyReferenceInfo>>();
 
     /** page sequence formatting object being processed by this class */
     protected AbstractPageSequence pageSeq;
@@ -107,11 +113,30 @@ public abstract class AbstractPageSequenceLayoutManager extends AbstractLayoutMa
         return currentPageNum;
     }
 
+    /**
+     * Provides access to the map of index key reference infos.
+     * @return indexKeyReferenceInfoMap the map of index key reference infos
+     */
+    public Map<String, List<IndexKeyReferenceInfo>> getIndexKeyReferenceInfoMap() {
+        return indexKeyReferenceInfoMap;
+    }
+
     /** {@inheritDoc} */
     public void initialize() {
         startPageNum = pageSeq.getStartingPageNumber();
         currentPageNum = startPageNum - 1;
         curPage = null;
+    }
+
+    /**
+     * This returns the list of all PageViewport items that contain
+     * an id trait matching the idref argument.
+     *
+     * @param idref the idref trait needing to be resolved
+     * @return the list of PageViewport items that contain the ID trait
+     */
+    public List<PageViewport> getPVWithIDList(String idref) {
+        return idTracker.getPageViewportsContainingID(idref);
     }
 
     /**
@@ -122,9 +147,9 @@ public abstract class AbstractPageSequenceLayoutManager extends AbstractLayoutMa
      * @return the first PageViewport that contains the ID trait
      */
     public PageViewport getFirstPVWithID(String idref) {
-        List list = idTracker.getPageViewportsContainingID(idref);
-        if (list != null && list.size() > 0) {
-            return (PageViewport) list.get(0);
+        List<PageViewport> list = idTracker.getPageViewportsContainingID(idref);
+        if (!list.isEmpty()) {
+            return list.get(0);
         }
         return null;
     }
@@ -137,9 +162,9 @@ public abstract class AbstractPageSequenceLayoutManager extends AbstractLayoutMa
      * @return the last PageViewport that contains the ID trait
      */
     public PageViewport getLastPVWithID(String idref) {
-        List list = idTracker.getPageViewportsContainingID(idref);
-        if (list != null && list.size() > 0) {
-            return (PageViewport) list.get(list.size() - 1);
+        List<PageViewport> list = idTracker.getPageViewportsContainingID(idref);
+        if (!list.isEmpty()) {
+            return list.get(list.size() - 1);
         }
         return null;
     }

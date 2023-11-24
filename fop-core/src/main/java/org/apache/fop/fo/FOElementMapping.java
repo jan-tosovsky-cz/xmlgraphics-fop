@@ -145,6 +145,16 @@ public class FOElementMapping extends ElementMapping {
             // change bars
             foObjs.put("change-bar-begin", new ChangeBarBeginMaker());
             foObjs.put("change-bar-end", new ChangeBarEndMaker());
+
+            // Formatting Objects for Indexing
+            foObjs.put("index-key-reference", new IndexKeyReferenceMaker());
+            foObjs.put("index-page-citation-list", new IndexPageCitationListMaker());
+            foObjs.put("index-page-citation-list-separator", new IndexPageCitationListSeparatorMaker());
+            foObjs.put("index-page-citation-range-separator", new IndexPageCitationRangeSeparatorMaker());
+            foObjs.put("index-page-number-prefix", new IndexPageNumberPrefixMaker());
+            foObjs.put("index-page-number-suffix", new IndexPageNumberSuffixMaker());
+            foObjs.put("index-range-begin", new IndexRangeBeginMaker());
+            foObjs.put("index-range-end", new IndexRangeEndMaker());
         }
     }
 
@@ -543,4 +553,53 @@ public class FOElementMapping extends ElementMapping {
             return new org.apache.fop.fo.flow.ChangeBarEnd(parent);
         }
     }
+
+    static class IndexKeyReferenceMaker extends ElementMapping.Maker {
+        public FONode make(FONode parent) {
+            return new org.apache.fop.fo.flow.IndexKeyReference(parent);
+        }
+    }
+
+    static class IndexPageCitationListMaker extends ElementMapping.Maker {
+        public FONode make(FONode parent) {
+            return new org.apache.fop.fo.flow.IndexPageCitationList(parent);
+        }
+    }
+
+    static class IndexPageCitationListSeparatorMaker extends ElementMapping.Maker {
+        public FONode make(FONode parent) {
+            return new org.apache.fop.fo.flow.IndexPageCitationListSeparator(parent);
+        }
+    }
+
+    static class IndexPageCitationRangeSeparatorMaker extends ElementMapping.Maker {
+        public FONode make(FONode parent) {
+            return new org.apache.fop.fo.flow.IndexPageCitationRangeSeparator(parent);
+        }
+    }
+
+    static class IndexPageNumberPrefixMaker extends ElementMapping.Maker {
+        public FONode make(FONode parent) {
+            return new org.apache.fop.fo.flow.IndexPageNumberPrefix(parent);
+        }
+    }
+
+    static class IndexPageNumberSuffixMaker extends ElementMapping.Maker {
+        public FONode make(FONode parent) {
+            return new org.apache.fop.fo.flow.IndexPageNumberSuffix(parent);
+        }
+    }
+
+    static class IndexRangeBeginMaker extends ElementMapping.Maker {
+        public FONode make(FONode parent) {
+            return new org.apache.fop.fo.flow.IndexRangeBegin(parent);
+        }
+    }
+
+    static class IndexRangeEndMaker extends ElementMapping.Maker {
+        public FONode make(FONode parent) {
+            return new org.apache.fop.fo.flow.IndexRangeEnd(parent);
+        }
+    }
+
 }

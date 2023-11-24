@@ -324,6 +324,7 @@ public final class FOPropertyMapping implements Constants {
         gp.createWritingModeProperties();
         gp.createMiscProperties();
         gp.createChangeBarProperties();
+        gp.createIndexProperties();
 
         // Hardcode the subproperties.
         addSubpropMakerName("length", CP_LENGTH);
@@ -2638,6 +2639,52 @@ public final class FOPropertyMapping implements Constants {
         m.setInherited(true);
         m.setDefault("6pt");
         addPropertyMaker("change-bar-offset", m);
+    }
+
+    private void createIndexProperties() {
+        PropertyMaker m;
+
+        // index-key
+        m = new StringProperty.Maker(PR_INDEX_KEY);
+        m.setInherited(false);
+        m.setDefault("");
+        addPropertyMaker("index-key", m);
+
+        // index-class
+        m  = new StringProperty.Maker(PR_INDEX_CLASS);
+        m.setInherited(false);
+        m.setDefault("");
+        addPropertyMaker("index-class", m);
+
+        // ref-index-key
+        m  = new StringProperty.Maker(PR_REF_INDEX_KEY);
+        m.setInherited(false);
+        m.setDefault("");
+        addPropertyMaker("ref-index-key", m);
+
+        // page-number-treatment
+        m  = new StringProperty.Maker(PR_PAGE_NUMBER_TREATMENT);
+        m.setInherited(false);
+        m.setDefault("");
+        addPropertyMaker("page-number-treatment", m);
+
+        // merge-sequential-page-numbers
+        m  = new StringProperty.Maker(PR_MERGE_SEQUENTIAL_PAGE_NUMBERS);
+        m.setInherited(false);
+        m.setDefault("");
+        addPropertyMaker("merge-sequential-page-numbers", m);
+
+        // merge-ranges-across-index-key-references
+        m  = new StringProperty.Maker(PR_MERGE_RANGES_ACROSS_INDEX_KEY_REFERENCES);
+        m.setInherited(false);
+        m.setDefault("");
+        addPropertyMaker("merge-ranges-across-index-key-references", m);
+
+        // merge-pages-across-index-key-references
+        m  = new StringProperty.Maker(PR_MERGE_PAGES_ACROSS_INDEX_KEY_REFERENCES);
+        m.setInherited(false);
+        m.setDefault("");
+        addPropertyMaker("merge-pages-across-index-key-references", m);
     }
 
     private void createMiscProperties() {

@@ -46,6 +46,7 @@ import org.apache.fop.fo.flow.Character;
 import org.apache.fop.fo.flow.ExternalGraphic;
 import org.apache.fop.fo.flow.Float;
 import org.apache.fop.fo.flow.Footnote;
+import org.apache.fop.fo.flow.IndexPageCitationList;
 import org.apache.fop.fo.flow.Inline;
 import org.apache.fop.fo.flow.InlineContainer;
 import org.apache.fop.fo.flow.InlineLevel;
@@ -80,6 +81,7 @@ import org.apache.fop.layoutmgr.inline.ContentLayoutManager;
 import org.apache.fop.layoutmgr.inline.ExternalGraphicLayoutManager;
 import org.apache.fop.layoutmgr.inline.FloatLayoutManager;
 import org.apache.fop.layoutmgr.inline.FootnoteLayoutManager;
+import org.apache.fop.layoutmgr.inline.IndexPageCitationListLayoutManager;
 import org.apache.fop.layoutmgr.inline.InlineContainerLayoutManager;
 import org.apache.fop.layoutmgr.inline.InlineLayoutManager;
 import org.apache.fop.layoutmgr.inline.InstreamForeignObjectLM;
@@ -157,6 +159,7 @@ public class LayoutManagerMapping implements LayoutManagerMaker {
         registerMaker(MultiCase.class, new MultiCaseLayoutManagerMaker());
         registerMaker(MultiSwitch.class, new MultiSwitchLayoutManagerMaker());
         registerMaker(Float.class, new FloatLayoutManagerMaker());
+        registerMaker(IndexPageCitationList.class, new IndexPageCitationListLayoutManagerMaker());
     }
 
     /**
@@ -477,6 +480,14 @@ public class LayoutManagerMapping implements LayoutManagerMaker {
     public static class FloatLayoutManagerMaker extends Maker {
         public void make(FONode node, List lms, FOUserAgent userAgent) {
             lms.add(new FloatLayoutManager((Float) node));
+        }
+    }
+
+    public static class IndexPageCitationListLayoutManagerMaker extends Maker {
+
+        @Override
+        public void make(FONode node, List lms, FOUserAgent userAgent) {
+            lms.add(new IndexPageCitationListLayoutManager((IndexPageCitationList) node));
         }
     }
 

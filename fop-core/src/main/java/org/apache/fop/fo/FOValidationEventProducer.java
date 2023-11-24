@@ -423,6 +423,15 @@ public interface FOValidationEventProducer extends EventProducer {
     void changeBarWrongAncestor(Object source, String elementName, Locator loc);
 
     /**
+     * Index range ended without a matching start element.
+     * @param source the event source
+     * @param elementName the name of the context node
+     * @param loc the location of the error or null
+     * @event.severity FATAL
+     */
+    void indexRangeNoBegin(Object source, String elementName, Locator loc);
+
+    /**
      * Alternate text is missing for a graphic element.
      *
      * @param source the event source

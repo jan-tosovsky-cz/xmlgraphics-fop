@@ -32,6 +32,11 @@ import org.apache.fop.area.inline.InlineBlockParent;
 import org.apache.fop.area.inline.InlineParent;
 import org.apache.fop.datatypes.Length;
 import org.apache.fop.fo.flow.BasicLink;
+import org.apache.fop.fo.flow.IndexKeyReference;
+import org.apache.fop.fo.flow.IndexPageCitationListSeparator;
+import org.apache.fop.fo.flow.IndexPageCitationRangeSeparator;
+import org.apache.fop.fo.flow.IndexPageNumberPrefix;
+import org.apache.fop.fo.flow.IndexPageNumberSuffix;
 import org.apache.fop.fo.flow.Inline;
 import org.apache.fop.fo.flow.InlineLevel;
 import org.apache.fop.fo.flow.Leader;
@@ -137,6 +142,31 @@ public class InlineLayoutManager extends InlineStackingLayoutManager {
             alignmentBaseline = ((BasicLink)fobj).getAlignmentBaseline();
             baselineShift = ((BasicLink)fobj).getBaselineShift();
             dominantBaseline = ((BasicLink)fobj).getDominantBaseline();
+        } else if (fobj instanceof IndexKeyReference) {
+            alignmentAdjust = ((IndexKeyReference)fobj).getAlignmentAdjust();
+            alignmentBaseline = ((IndexKeyReference)fobj).getAlignmentBaseline();
+            baselineShift = ((IndexKeyReference)fobj).getBaselineShift();
+            dominantBaseline = ((IndexKeyReference)fobj).getDominantBaseline();
+        } else if (fobj instanceof IndexPageCitationListSeparator) {
+            alignmentAdjust = ((IndexPageCitationListSeparator)fobj).getAlignmentAdjust();
+            alignmentBaseline = ((IndexPageCitationListSeparator)fobj).getAlignmentBaseline();
+            baselineShift = ((IndexPageCitationListSeparator)fobj).getBaselineShift();
+            dominantBaseline = ((IndexPageCitationListSeparator)fobj).getDominantBaseline();
+        } else if (fobj instanceof IndexPageCitationRangeSeparator) {
+            alignmentAdjust = ((IndexPageCitationRangeSeparator)fobj).getAlignmentAdjust();
+            alignmentBaseline = ((IndexPageCitationRangeSeparator)fobj).getAlignmentBaseline();
+            baselineShift = ((IndexPageCitationRangeSeparator)fobj).getBaselineShift();
+            dominantBaseline = ((IndexPageCitationRangeSeparator)fobj).getDominantBaseline();
+        } else if (fobj instanceof IndexPageNumberPrefix) {
+            alignmentAdjust = ((IndexPageNumberPrefix)fobj).getAlignmentAdjust();
+            alignmentBaseline = ((IndexPageNumberPrefix)fobj).getAlignmentBaseline();
+            baselineShift = ((IndexPageNumberPrefix)fobj).getBaselineShift();
+            dominantBaseline = ((IndexPageNumberPrefix)fobj).getDominantBaseline();
+        } else if (fobj instanceof IndexPageNumberSuffix) {
+            alignmentAdjust = ((IndexPageNumberSuffix)fobj).getAlignmentAdjust();
+            alignmentBaseline = ((IndexPageNumberSuffix)fobj).getAlignmentBaseline();
+            baselineShift = ((IndexPageNumberSuffix)fobj).getBaselineShift();
+            dominantBaseline = ((IndexPageNumberSuffix)fobj).getDominantBaseline();
         }
         if (borderProps != null) {
             padding = borderProps.getPadding(CommonBorderPaddingBackground.BEFORE, false, this);

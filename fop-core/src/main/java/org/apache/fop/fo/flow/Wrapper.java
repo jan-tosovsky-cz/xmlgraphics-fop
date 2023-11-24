@@ -30,6 +30,7 @@ import org.apache.fop.fo.PropertyList;
 import org.apache.fop.fo.ValidationException;
 import org.apache.fop.fo.properties.CommonAccessibility;
 import org.apache.fop.fo.properties.CommonAccessibilityHolder;
+import org.apache.fop.fo.properties.Indexable;
 
 /**
  * Class modelling the <a href="http://www.w3.org/TR/xsl/#fo_wrapper">fo wrapper</a>
@@ -37,12 +38,14 @@ import org.apache.fop.fo.properties.CommonAccessibilityHolder;
  * The <code>fo:wrapper</code> object serves as a property holder for
  * its child node objects.
  */
-public class Wrapper extends FObjMixed implements CommonAccessibilityHolder {
+public class Wrapper extends FObjMixed implements CommonAccessibilityHolder, Indexable {
 
     // used for FO validation
     private boolean blockOrInlineItemFound;
 
     private CommonAccessibility commonAccessibility;
+    private String indexKey;
+    private String indexClass;
 
     /**
      * Create a Wrapper instance that is a child of the
@@ -58,6 +61,8 @@ public class Wrapper extends FObjMixed implements CommonAccessibilityHolder {
     public void bind(PropertyList pList) throws FOPException {
         super.bind(pList);
         commonAccessibility = CommonAccessibility.getInstance(pList);
+        indexKey = pList.get(Constants.PR_INDEX_KEY).getString();
+        indexClass = pList.get(Constants.PR_INDEX_CLASS).getString();
     }
 
     @Override
@@ -145,8 +150,27 @@ public class Wrapper extends FObjMixed implements CommonAccessibilityHolder {
         return FO_WRAPPER;
     }
 
+    /** {@inheritDoc} */
     public CommonAccessibility getCommonAccessibility() {
         return commonAccessibility;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public String getIndexClass() {
+        return indexClass;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public String getIndexKey() {
+        return indexKey;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean hasIndexKey() {
+        return indexKey != null && !indexKey.isEmpty();
     }
 
     @Override

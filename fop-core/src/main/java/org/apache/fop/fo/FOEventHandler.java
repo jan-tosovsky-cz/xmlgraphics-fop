@@ -31,6 +31,7 @@ import org.apache.fop.fo.flow.Character;
 import org.apache.fop.fo.flow.ExternalGraphic;
 import org.apache.fop.fo.flow.Footnote;
 import org.apache.fop.fo.flow.FootnoteBody;
+import org.apache.fop.fo.flow.IndexPageCitationList;
 import org.apache.fop.fo.flow.Inline;
 import org.apache.fop.fo.flow.InstreamForeignObject;
 import org.apache.fop.fo.flow.Leader;
@@ -192,6 +193,20 @@ public abstract class FOEventHandler {
      * @param pageLast PageNumberCitationLast that is ending.
      */
     public void endPageNumberCitationLast(PageNumberCitationLast pageLast) {
+    }
+
+    /**
+     *
+     * @param indexPageCitationList IndexPageCitationList that is starting.
+     */
+    public void startIndexPageCitationList(IndexPageCitationList indexPageCitationList) {
+    }
+
+    /**
+     *
+     * @param indexPageCitationList IndexPageCitationList that is ending.
+     */
+    public void endIndexPageCitationList(IndexPageCitationList indexPageCitationList) {
     }
 
     /**

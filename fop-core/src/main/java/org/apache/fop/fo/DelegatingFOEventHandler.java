@@ -31,6 +31,7 @@ import org.apache.fop.fo.flow.Character;
 import org.apache.fop.fo.flow.ExternalGraphic;
 import org.apache.fop.fo.flow.Footnote;
 import org.apache.fop.fo.flow.FootnoteBody;
+import org.apache.fop.fo.flow.IndexPageCitationList;
 import org.apache.fop.fo.flow.Inline;
 import org.apache.fop.fo.flow.InstreamForeignObject;
 import org.apache.fop.fo.flow.Leader;
@@ -142,6 +143,16 @@ public abstract class DelegatingFOEventHandler extends FOEventHandler {
     @Override
     public void endPageNumberCitationLast(PageNumberCitationLast pageLast) {
         delegate.endPageNumberCitationLast(pageLast);
+    }
+
+    @Override
+    public void startIndexPageCitationList(IndexPageCitationList indexPageCitationList) {
+        delegate.startIndexPageCitationList(indexPageCitationList);
+    }
+
+    @Override
+    public void endIndexPageCitationList(IndexPageCitationList indexPageCitationList) {
+        delegate.endIndexPageCitationList(indexPageCitationList);
     }
 
     @Override
